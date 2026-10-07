@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#111111">
+  <title>Video Recorder by Zaka</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>Simple JavaScript Based Video Recorder</h1>
+    <p class="madeby">Created by Zaka</p>
+
+    <p id="mic-warning" class="warning" role="status" hidden>
+      Your microphone isn't receiving audio. Check its connection or choose another microphone.
+    </p>
+
+    <section class="preview-area" aria-label="Live camera preview">
+      <video id="source-video" autoplay muted playsinline></video>
+      <canvas id="preview" aria-label="Live camera preview"></canvas>
+      <aside class="level-meter" aria-label="Microphone level">
+        <span class="meter-label">Mic</span>
+        <div id="mic-level" class="meter-bars" aria-label="Microphone level 0 of 10">
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+        <span id="mic-level-text" class="meter-value">0/10</span>
+      </aside>
+      <div id="countdown" class="countdown" aria-live="assertive" hidden></div>
+    </section>
+
+    <div class="recording-stats" aria-live="polite">
+      <span id="recording-timer">00:00</span>
+      <span aria-hidden="true">·</span>
+      <span id="recording-size">0 B</span>
+    </div>
+
+    <div class="controls">
+      <button id="start">Start recording</button>
+      <button id="pause" disabled>Pause</button>
+      <button id="stop" disabled>Stop</button>
+      <select id="camera" disabled aria-label="Camera"><option>Camera</option></select>
+      <select id="microphone" disabled aria-label="Microphone"><option>Microphone</option></select>
+    </div>
+
+    <div class="utility-controls">
+      <label class="check-control"><input id="mirror" type="checkbox"> Mirror webcam</label>
+      <label class="check-control"><input id="use-countdown" type="checkbox"> Countdown</label>
+      <label class="countdown-control" for="countdown-seconds">Start from
+        <input id="countdown-seconds" type="number" value="3" min="1" max="99" inputmode="numeric" disabled>
+      </label>
+      <button id="effects-toggle" type="button" aria-expanded="false" aria-controls="effects-menu">Video options</button>
+    </div>
+
+    <section id="effects-menu" class="effects-menu" hidden aria-label="Video options">
+      <label class="effect-control">
+        <span class="effect-name"><input id="background-blur" type="checkbox"> Background blur</span>
+        <span class="effect-value" hidden><input id="background-blur-value" type="number" value="2" min="0" max="20" step="0.5" disabled aria-label="Background blur amount"> px</span>
+      </label>
+      <label class="effect-control">
+        <span class="effect-name"><input id="brightness-contrast" type="checkbox"> Brightness / contrast</span>
+        <span class="effect-value" hidden>
+          <input id="brightness-value" type="number" value="1.08" min="0" max="3" step="0.01" disabled aria-label="Brightness amount">
+          <input id="contrast-value" type="number" value="1.12" min="0" max="3" step="0.01" disabled aria-label="Contrast amount">
+        </span>
+      </label>
+      <label class="effect-control">
+        <span class="effect-name"><input id="saturation" type="checkbox"> Saturation</span>
+        <span class="effect-value" hidden><input id="saturation-value" type="number" value="1.3" min="0" max="3" step="0.05" disabled aria-label="Saturation amount"> ×</span>
+      </label>
+      <label class="effect-control">
+        <span class="effect-name"><input id="sharpness" type="checkbox"> Sharpness</span>
+        <span class="effect-value" hidden><input id="sharpness-value" type="number" value="1.08" min="0" max="2" step="0.01" disabled aria-label="Sharpness amount"> ×</span>
+      </label>
+      <label class="effect-control">
+        <span class="effect-name"><input id="zoom" type="checkbox"> Zoom</span>
+        <span class="effect-value" hidden><input id="zoom-value" type="number" value="1.12" min="1" max="3" step="0.01" disabled aria-label="Zoom amount"> ×</span>
+      </label>
+    </section>
+
+    <div id="status">Choose Start recording to request camera and microphone access.</div>
+    <a id="download">Download recording</a>
+    <div class="hint">Recordings and video options are processed locally in your browser.</div>
+  </main>
+
+  <script type="module" src="recorder.js"></script>
+</body>
+</html>
